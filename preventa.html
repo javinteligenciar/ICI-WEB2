@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Programa de Preventa Editorial ICI — Publica tu libro sin riesgo financiero. Moviliza tu red de contactos y financia tu publicación antes de que empiece la producción.">
+<title>Preventa de Libros — Instituto Cultural Iberoamericano</title>
+<style>
+:root {
+  --navy:    #0C1A2E;
+  --blue:    #1A3A6B;
+  --gold:    #B8860B;
+  --gold-lt: #F5C842;
+  --cream:   #FAF7F2;
+  --grey-1:  #F3F4F6;
+  --grey-2:  #E5E7EB;
+  --grey-3:  #9CA3AF;
+  --grey-4:  #4B5563;
+  --green:   #059669;
+  --green-lt:#D1FAE5;
+  --purple:  #6366F1;
+  --white:   #FFFFFF;
+  --r: 12px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Georgia', serif; background: var(--white); color: var(--navy); overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+.sans { font-family: Arial, sans-serif; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(12,26,46,.97); backdrop-filter: blur(10px);
+  border-bottom: 2px solid var(--gold);
+  padding: 0 24px;
+}
+.nav-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+}
+.nav-logo { display: flex; align-items: center; gap: 12px; }
+.nav-logo img { height: 44px; width: 44px; border-radius: 50%; border: 2px solid rgba(184,134,11,.6); object-fit: cover; object-position: center 20%; }
+.nav-logo-text strong { display: block; color: #fff; font-family: Arial, sans-serif; font-size: .82rem; font-weight: 700; }
+.nav-logo-text span { font-family: Arial, sans-serif; font-size: .65rem; color: var(--gold); text-transform: uppercase; letter-spacing: .08em; }
+.nav-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--gold); color: var(--navy);
+  font-family: Arial, sans-serif; font-weight: 700; font-size: .85rem;
+  padding: 9px 20px; border-radius: 8px; transition: all .2s;
+}
+.nav-cta:hover { background: var(--gold-lt); }
+.nav-links { display: flex; gap: 6px; list-style: none; }
+.nav-links a { font-family: Arial, sans-serif; font-size: .82rem; color: rgba(255,255,255,.75); padding: 6px 14px; border-radius: 6px; transition: all .2s; }
+.nav-links a:hover { color: var(--gold); background: rgba(184,134,11,.1); }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  background: linear-gradient(150deg, var(--navy) 0%, #1a2e50 55%, #0d1f3c 100%);
+  display: flex; align-items: center; padding-top: 64px;
+  position: relative; overflow: hidden;
+}
+.hero-glow {
+  position: absolute; pointer-events: none;
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(184,134,11,.12) 0%, transparent 70%);
+  top: 50%; right: -100px; transform: translateY(-50%);
+}
+.hero-grid { max-width: 1100px; margin: 0 auto; padding: 60px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(184,134,11,.15); border: 1px solid rgba(184,134,11,.35);
+  border-radius: 20px; padding: 6px 16px; margin-bottom: 22px;
+}
+.hero-eyebrow span { font-family: Arial, sans-serif; font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+.hero-title { font-size: clamp(2rem, 4.5vw, 3.4rem); color: #fff; line-height: 1.1; margin-bottom: 10px; }
+.hero-title em { font-style: normal; color: var(--gold-lt); display: block; }
+.hero-sub { font-family: Arial, sans-serif; font-size: .98rem; color: rgba(255,255,255,.62); line-height: 1.75; margin-bottom: 32px; max-width: 480px; }
+.btn-hero {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: linear-gradient(135deg, var(--gold-lt), var(--gold));
+  color: var(--navy); font-family: Arial, sans-serif; font-weight: 900;
+  font-size: 1rem; padding: 16px 32px; border-radius: 10px;
+  box-shadow: 0 4px 24px rgba(245,200,66,.4); transition: all .22s;
+  border: none; cursor: pointer;
+}
+.btn-hero:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(245,200,66,.6); }
+.hero-trust { display: flex; gap: 20px; margin-top: 28px; flex-wrap: wrap; }
+.trust-item { display: flex; align-items: center; gap: 7px; font-family: Arial, sans-serif; font-size: .8rem; color: rgba(255,255,255,.5); }
+.trust-icon { font-size: 1rem; }
+
+/* Hero right — mock book card */
+.hero-book-mock {
+  background: rgba(255,255,255,.06); border: 1.5px solid rgba(255,255,255,.12);
+  border-radius: 20px; padding: 32px; position: relative;
+}
+.mock-progress-label { font-family: Arial, sans-serif; font-size: .72rem; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 8px; }
+.mock-title { font-size: 1.2rem; color: #fff; margin-bottom: 4px; }
+.mock-author { font-family: Arial, sans-serif; font-size: .85rem; color: rgba(255,255,255,.5); font-style: italic; margin-bottom: 20px; }
+.progress-bar-wrap { background: rgba(255,255,255,.1); border-radius: 8px; height: 10px; overflow: hidden; margin-bottom: 10px; }
+.progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-lt)); border-radius: 8px; transition: width 1.5s ease; }
+.mock-stats { display: flex; justify-content: space-between; margin-bottom: 22px; }
+.mock-stat-num { font-size: 1.4rem; font-weight: 700; color: var(--gold-lt); font-family: Arial, sans-serif; }
+.mock-stat-lbl { font-family: Arial, sans-serif; font-size: .7rem; color: rgba(255,255,255,.4); margin-top: 2px; }
+.mock-supporters { display: flex; gap: -6px; margin-bottom: 20px; }
+.mock-avatar { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--navy); background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: .85rem; margin-left: -8px; }
+.mock-avatar:first-child { margin-left: 0; }
+.mock-supporters-txt { font-family: Arial, sans-serif; font-size: .78rem; color: rgba(255,255,255,.5); margin-left: 10px; align-self: center; }
+.mock-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(5,150,105,.2); border: 1px solid rgba(5,150,105,.4); border-radius: 20px; padding: 5px 14px; }
+.mock-badge span { font-family: Arial, sans-serif; font-size: .72rem; font-weight: 700; color: #6EE7B7; text-transform: uppercase; letter-spacing: .08em; }
+.mock-pulse { width: 8px; height: 8px; background: #34D399; border-radius: 50%; animation: pulse-g 1.5s infinite; }
+@keyframes pulse-g { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
+
+/* ── HOW IT WORKS ── */
+#como { background: var(--cream); padding: 80px 0; }
+.section-header { text-align: center; margin-bottom: 52px; }
+.eyebrow { font-family: Arial, sans-serif; font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.section-header h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--navy); margin-bottom: 14px; }
+.section-header p { font-family: Arial, sans-serif; font-size: .95rem; color: var(--grey-4); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+.steps-grid { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0; position: relative; }
+.steps-grid::before { content: ''; position: absolute; top: 44px; left: 10%; right: 10%; height: 2px; background: linear-gradient(90deg, var(--gold), var(--gold-lt), var(--gold)); z-index: 0; }
+.step-item { text-align: center; position: relative; z-index: 1; padding: 0 16px; }
+.step-circle {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+  color: var(--navy); font-family: Arial, sans-serif; font-weight: 900; font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 18px; box-shadow: 0 4px 16px rgba(184,134,11,.35);
+}
+.step-title { font-size: .95rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+.step-desc { font-family: Arial, sans-serif; font-size: .82rem; color: var(--grey-4); line-height: 1.6; }
+
+/* ── PACKAGES ── */
+#paquetes { background: var(--white); padding: 80px 0; }
+.packages-grid { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.pkg {
+  border: 2px solid var(--grey-2); border-radius: var(--r);
+  padding: 32px 28px; position: relative; transition: all .25s;
+}
+.pkg:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(12,26,46,.1); }
+.pkg.featured { border-color: var(--gold); box-shadow: 0 4px 24px rgba(184,134,11,.2); }
+.pkg-crown { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--navy); font-family: Arial, sans-serif; font-size: .68rem; font-weight: 700; padding: 4px 16px; border-radius: 10px; white-space: nowrap; letter-spacing: .06em; text-transform: uppercase; }
+.pkg-icon { font-size: 2.2rem; margin-bottom: 14px; }
+.pkg-name { font-family: Arial, sans-serif; font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--grey-3); margin-bottom: 8px; }
+.pkg-price { font-size: 2.4rem; font-weight: 700; color: var(--navy); font-family: Arial, sans-serif; line-height: 1; margin-bottom: 4px; }
+.pkg-price sup { font-size: 1rem; vertical-align: top; margin-top: 8px; }
+.pkg-orig { font-family: Arial, sans-serif; font-size: .82rem; color: var(--grey-3); text-decoration: line-through; margin-bottom: 20px; }
+.pkg-save { display: inline-block; background: var(--green-lt); color: var(--green); font-family: Arial, sans-serif; font-size: .72rem; font-weight: 700; padding: 3px 10px; border-radius: 6px; margin-left: 6px; }
+.pkg-features { list-style: none; margin-bottom: 24px; display: flex; flex-direction: column; gap: 10px; }
+.pkg-features li { font-family: Arial, sans-serif; font-size: .85rem; color: var(--grey-4); display: flex; gap: 10px; align-items: flex-start; line-height: 1.45; }
+.pkg-features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.btn-pkg { width: 100%; padding: 12px; border: 2px solid var(--grey-2); border-radius: 8px; font-family: Arial, sans-serif; font-size: .9rem; font-weight: 700; color: var(--navy); background: var(--white); cursor: pointer; transition: all .2s; }
+.btn-pkg:hover { border-color: var(--gold); color: var(--gold); }
+.btn-pkg.featured { background: linear-gradient(135deg, var(--gold), var(--gold-lt)); border-color: var(--gold); color: var(--navy); }
+.btn-pkg.featured:hover { box-shadow: 0 4px 16px rgba(184,134,11,.4); }
+
+/* ── FORMULA ── */
+#formula { background: var(--navy); padding: 72px 0; }
+.formula-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.formula-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.formula-left h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); color: #fff; margin-bottom: 16px; }
+.formula-left p { font-family: Arial, sans-serif; font-size: .92rem; color: rgba(255,255,255,.6); line-height: 1.75; margin-bottom: 24px; }
+.formula-calc { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: var(--r); padding: 24px; }
+.calc-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.07); font-family: Arial, sans-serif; font-size: .88rem; }
+.calc-row:last-child { border-bottom: none; }
+.calc-label { color: rgba(255,255,255,.55); }
+.calc-val { font-weight: 700; color: #fff; }
+.calc-val.gold { color: var(--gold-lt); font-size: 1.1rem; }
+.calc-val.green { color: #6EE7B7; }
+.formula-tip { margin-top: 20px; display: flex; gap: 12px; align-items: flex-start; }
+.tip-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+.tip-text { font-family: Arial, sans-serif; font-size: .83rem; color: rgba(255,255,255,.5); line-height: 1.6; }
+
+/* ── FORM SECTION ── */
+#formulario { background: var(--grey-1); padding: 80px 0; }
+.form-wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 1fr 1.1fr; gap: 60px; align-items: start; }
+.form-left h2 { font-size: clamp(1.6rem, 2.5vw, 2.2rem); color: var(--navy); margin: 10px 0 16px; }
+.form-left p { font-family: Arial, sans-serif; font-size: .92rem; color: var(--grey-4); line-height: 1.75; margin-bottom: 28px; }
+.benefit { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 18px; }
+.benefit-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(184,134,11,.12); border: 1px solid rgba(184,134,11,.2); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+.benefit strong { display: block; font-size: .9rem; color: var(--navy); margin-bottom: 3px; }
+.benefit span { font-family: Arial, sans-serif; font-size: .8rem; color: var(--grey-4); line-height: 1.5; }
+.form-card { background: var(--white); border-radius: var(--r); padding: 36px; box-shadow: 0 4px 24px rgba(12,26,46,.1); }
+.form-card h3 { font-size: 1.15rem; color: var(--navy); margin-bottom: 6px; }
+.form-card .sub { font-family: Arial, sans-serif; font-size: .82rem; color: var(--grey-3); margin-bottom: 24px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.fg { margin-bottom: 16px; }
+.fg label { display: block; font-family: Arial, sans-serif; font-size: .75rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; letter-spacing: .02em; }
+.fg input, .fg select, .fg textarea {
+  width: 100%; padding: 11px 14px;
+  border: 1.5px solid var(--grey-2); border-radius: 8px;
+  font-family: Arial, sans-serif; font-size: .88rem; color: var(--navy);
+  background: var(--white); outline: none; transition: border-color .2s;
+}
+.fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--gold); }
+.fg textarea { resize: vertical; min-height: 80px; }
+.btn-submit {
+  width: 100%; padding: 15px;
+  background: linear-gradient(135deg, var(--navy), var(--blue));
+  color: var(--white); font-family: Arial, sans-serif; font-weight: 700;
+  font-size: .95rem; border-radius: 10px; border: none; cursor: pointer;
+  transition: all .22s; margin-top: 4px;
+  box-shadow: 0 4px 16px rgba(12,26,46,.25);
+}
+.btn-submit:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(12,26,46,.35); }
+.form-note { text-align: center; font-family: Arial, sans-serif; font-size: .73rem; color: var(--grey-3); margin-top: 12px; }
+
+/* ── FAQ STRIP ── */
+#faq { background: var(--white); padding: 72px 0; }
+.faq-inner { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+.faq-item { border-bottom: 1px solid var(--grey-2); }
+.faq-q {
+  width: 100%; text-align: left; display: flex; justify-content: space-between;
+  align-items: center; padding: 18px 0; font-family: Arial, sans-serif;
+  font-size: .92rem; font-weight: 700; color: var(--navy); cursor: pointer;
+  background: none; border: none; gap: 16px;
+}
+.faq-icon { width: 26px; height: 26px; border-radius: 50%; background: var(--blue); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; transition: transform .3s; }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+.faq-a-inner { font-family: Arial, sans-serif; font-size: .86rem; color: var(--grey-4); line-height: 1.75; padding-bottom: 18px; }
+.faq-item.open .faq-a { max-height: 200px; }
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+
+/* ── CTA FINAL ── */
+#cta-final {
+  background: linear-gradient(135deg, var(--gold) 0%, #D4A017 50%, var(--gold) 100%);
+  padding: 64px 24px; text-align: center;
+}
+#cta-final h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); color: var(--navy); margin-bottom: 14px; }
+#cta-final p { font-family: Arial, sans-serif; font-size: .95rem; color: rgba(12,26,46,.7); max-width: 500px; margin: 0 auto 28px; line-height: 1.7; }
+.btn-cta-final { display: inline-flex; align-items: center; gap: 10px; background: var(--navy); color: #fff; font-family: Arial, sans-serif; font-weight: 700; font-size: 1rem; padding: 15px 32px; border-radius: 10px; transition: all .22s; }
+.btn-cta-final:hover { background: var(--blue); transform: translateY(-2px); }
+
+/* ── FOOTER ── */
+footer { background: #060f1c; border-top: 2px solid var(--gold); padding: 32px 24px; text-align: center; }
+footer p { font-family: Arial, sans-serif; font-size: .8rem; color: rgba(255,255,255,.35); margin-bottom: 8px; }
+footer a { color: var(--gold); transition: color .2s; }
+footer a:hover { color: var(--gold-lt); }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .hero-grid, .formula-grid, .form-wrap { grid-template-columns: 1fr; gap: 40px; }
+  .packages-grid { grid-template-columns: 1fr; }
+  .steps-grid::before { display: none; }
+  .form-row { grid-template-columns: 1fr; }
+  .hero-book-mock { display: none; }
+  .nav-links { display: none; }
+}
+
+/* Success modal */
+#successModal {
+  display: none; position: fixed; inset: 0; z-index: 300;
+  background: rgba(6,15,28,.85); align-items: center; justify-content: center; padding: 20px;
+}
+#successModal.show { display: flex; }
+.success-card { background: #fff; border-radius: 16px; padding: 48px 40px; max-width: 440px; width: 100%; text-align: center; }
+.success-icon { font-size: 3.5rem; margin-bottom: 16px; }
+.success-card h3 { font-size: 1.5rem; color: var(--navy); margin-bottom: 10px; }
+.success-card p { font-family: Arial, sans-serif; font-size: .9rem; color: var(--grey-4); line-height: 1.7; margin-bottom: 24px; }
+.btn-success { background: var(--gold); color: var(--navy); font-family: Arial, sans-serif; font-weight: 700; padding: 12px 28px; border-radius: 8px; border: none; cursor: pointer; font-size: .9rem; }
+</style>
+</head>
+<body>
+
+<!-- SUCCESS MODAL -->
+<div id="successModal">
+  <div class="success-card">
+    <div class="success-icon">🎉</div>
+    <h3>¡Solicitud recibida!</h3>
+    <p>Gracias por tu interés en el Programa de Preventa ICI. Nuestro equipo editorial revisará tu solicitud y se pondrá en contacto contigo en un máximo de <strong>5 días hábiles</strong>.</p>
+    <p style="font-family:Arial,sans-serif;font-size:.82rem;color:#9CA3AF;margin-bottom:24px;">Revisa tu bandeja de entrada (y la carpeta de spam) para confirmar la recepción.</p>
+    <button class="btn-success" onclick="document.getElementById('successModal').classList.remove('show')">Entendido ✓</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div style="width:44px;height:44px;border-radius:50%;border:2px solid rgba(184,134,11,.6);background:linear-gradient(135deg,#1A3A6B,#0d1f3c);display:flex;align-items:center;justify-content:center;font-size:1.4rem;">📖</div>
+      <div class="nav-logo-text">
+        <strong>Preventa Editorial</strong>
+        <span>Instituto Cultural Iberoamericano</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#como">Cómo funciona</a></li>
+      <li><a href="#paquetes">Paquetes</a></li>
+      <li><a href="#formula">Cálculo</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="https://www.institutoculturaliberoamericano.es" target="_blank">← Web principal</a></li>
+    </ul>
+    <a href="#formulario" class="nav-cta">✍️ Solicitar preventa</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grid" style="max-width:1100px;margin:0 auto;padding:60px 24px;">
+    <div>
+      <div class="hero-eyebrow"><span>✦ Programa Exclusivo ICI · Publica Sin Riesgo</span></div>
+      <h1 class="hero-title">
+        Financia tu libro
+        <em>antes de publicarlo.</em>
+      </h1>
+      <p class="hero-sub">Lanza tu preventa entre familia y amigos, alcanza tu meta y el ICI produce tu libro con ese capital. Sin riesgo financiero. Sin barreras para publicar.</p>
+      <a href="#formulario" class="btn-hero">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="#0C1A2E"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 16.18 9.64 16 12 16s4.53.18 6.24 1.19c.48.38.76.97.76 1.58V19z"/></svg>
+        Solicitar mi preventa ahora
+      </a>
+      <div class="hero-trust">
+        <div class="trust-item"><span class="trust-icon">✅</span><span>Sin costo inicial</span></div>
+        <div class="trust-item"><span class="trust-icon">🌍</span><span>24 países de alcance</span></div>
+        <div class="trust-item"><span class="trust-icon">🔒</span><span>Pago seguro Stripe</span></div>
+        <div class="trust-item"><span class="trust-icon">📦</span><span>Respuesta en 5 días</span></div>
+      </div>
+    </div>
+
+    <!-- Mock preventa book card -->
+    <div class="hero-book-mock">
+      <div class="mock-badge" style="margin-bottom:20px;">
+        <div class="mock-pulse"></div>
+        <span>Preventa activa</span>
+      </div>
+      <div style="font-size:2rem;margin-bottom:10px;">📗</div>
+      <div class="mock-title">"Voces del Río"</div>
+      <div class="mock-author">por María Elena Rodríguez</div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+        <span style="font-family:Arial,sans-serif;font-size:.75rem;color:rgba(255,255,255,.45);">Poemario · Colombia</span>
+        <span style="font-family:Arial,sans-serif;font-size:.75rem;color:var(--gold-lt);font-weight:700;">73%</span>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="heroBar" style="width:0%"></div>
+      </div>
+      <div class="mock-stats">
+        <div><div class="mock-stat-num" id="counterNum">0</div><div class="mock-stat-lbl">ejemplares reservados</div></div>
+        <div style="text-align:right"><div class="mock-stat-num">50</div><div class="mock-stat-lbl">meta mínima</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;">
+        <div style="display:flex;">
+          <div class="mock-avatar">👩</div>
+          <div class="mock-avatar">👨</div>
+          <div class="mock-avatar">👩</div>
+          <div class="mock-avatar">👴</div>
+          <div class="mock-avatar" style="background:var(--gold);color:var(--navy);font-size:.7rem;font-weight:700;">+32</div>
+        </div>
+        <span class="mock-supporters-txt">personas han apoyado este libro</span>
+      </div>
+      <!-- Paquetes mini -->
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="background:rgba(255,255,255,.08);border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-family:Arial,sans-serif;font-size:.82rem;color:rgba(255,255,255,.8);">📘 Básico — 1 ejemplar</span>
+          <span style="font-family:Arial,sans-serif;font-size:.9rem;font-weight:700;color:var(--gold-lt);">7€</span>
+        </div>
+        <div style="background:rgba(184,134,11,.15);border:1px solid rgba(184,134,11,.3);border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-family:Arial,sans-serif;font-size:.82rem;color:rgba(255,255,255,.9);">⭐ Apoyo — 2 ejemplares</span>
+          <span style="font-family:Arial,sans-serif;font-size:.9rem;font-weight:700;color:var(--gold-lt);">15€</span>
+        </div>
+        <div style="background:rgba(255,255,255,.08);border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-family:Arial,sans-serif;font-size:.82rem;color:rgba(255,255,255,.8);">🏆 Mecenas — 3 ej. + extras</span>
+          <span style="font-family:Arial,sans-serif;font-size:.9rem;font-weight:700;color:var(--gold-lt);">30€</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section id="como">
+  <div style="max-width:1100px;margin:0 auto;padding:0 24px;">
+    <div class="section-header">
+      <div class="eyebrow">Proceso</div>
+      <h2>¿Cómo funciona la Preventa ICI?</h2>
+      <p>Un proceso simple y transparente para que tu libro vea la luz sin que tengas que asumir el riesgo financiero tú solo.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-item">
+        <div class="step-circle">1</div>
+        <div class="step-title">Envías tu solicitud</div>
+        <div class="step-desc">Rellenas el formulario con los datos de tu libro. El ICI lo revisa en 5 días hábiles.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle">2</div>
+        <div class="step-title">ICI aprueba tu preventa</div>
+        <div class="step-desc">Si el manuscrito cumple los criterios editoriales, activamos tu página de preventa personalizada.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle">3</div>
+        <div class="step-title">Movilizas tu red</div>
+        <div class="step-desc">Compartes tu enlace único con familia, amigos y contactos. Ellos reservan su ejemplar.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle">4</div>
+        <div class="step-title">Alcanzas la meta</div>
+        <div class="step-desc">Con un mínimo de 30 reservas confirmadas, el ICI inicia la producción del libro.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle">5</div>
+        <div class="step-title">¡Tu libro se publica!</div>
+        <div class="step-desc">El ICI produce, distribuye y promueve tu obra. Tú recibes tus regalías por cada venta.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAQUETES -->
+<section id="paquetes">
+  <div style="max-width:1100px;margin:0 auto;padding:0 24px;">
+    <div class="section-header">
+      <div class="eyebrow">Paquetes de Apoyo</div>
+      <h2>Opciones para tus compradores</h2>
+      <p>Tus amigos y familiares pueden elegir el nivel de apoyo que prefieran. Todos incluyen el libro a precio de preventa.</p>
+    </div>
+    <div class="packages-grid">
+
+      <div class="pkg">
+        <div class="pkg-icon">📘</div>
+        <div class="pkg-name">Paquete Básico</div>
+        <div class="pkg-price"><sup>€</sup>7</div>
+        <div class="pkg-orig">Precio normal: 9,95€ <span class="pkg-save">Ahorra 30%</span></div>
+        <ul class="pkg-features">
+          <li>1 ejemplar del libro firmado por el autor</li>
+          <li>Tu nombre en la sección de agradecimientos</li>
+          <li>Acceso a la presentación virtual del libro</li>
+          <li>Envío a los 24 países del ICI</li>
+        </ul>
+        <button class="btn-pkg" onclick="document.getElementById('formulario').scrollIntoView({behavior:'smooth'})">Solicitar preventa</button>
+      </div>
+
+      <div class="pkg featured">
+        <div class="pkg-crown">✦ Más elegido</div>
+        <div class="pkg-icon">⭐</div>
+        <div class="pkg-name">Paquete Apoyo</div>
+        <div class="pkg-price"><sup>€</sup>15</div>
+        <div class="pkg-orig">Valor normal: 19,90€ <span class="pkg-save">Ahorra 25%</span></div>
+        <ul class="pkg-features">
+          <li>2 ejemplares del libro firmados</li>
+          <li>Dedicatoria personalizada del autor</li>
+          <li>Tu nombre en agradecimientos destacado</li>
+          <li>Acceso a presentación virtual del libro</li>
+          <li>Certificado digital de mecenas fundador</li>
+        </ul>
+        <button class="btn-pkg featured" onclick="document.getElementById('formulario').scrollIntoView({behavior:'smooth'})">Solicitar preventa</button>
+      </div>
+
+      <div class="pkg">
+        <div class="pkg-icon">🏆</div>
+        <div class="pkg-name">Paquete Mecenas</div>
+        <div class="pkg-price"><sup>€</sup>30</div>
+        <div class="pkg-orig">Valor normal: 39,85€ <span class="pkg-save">Ahorra 25%</span></div>
+        <ul class="pkg-features">
+          <li>3 ejemplares del libro firmados</li>
+          <li>Dedicatoria personalizada del autor</li>
+          <li>Tu nombre en la <strong>contraportada</strong> como mecenas</li>
+          <li>Invitación al evento presencial de presentación</li>
+          <li>Acceso anticipado al libro antes del lanzamiento</li>
+          <li>Certificado físico de mecenas fundador</li>
+        </ul>
+        <button class="btn-pkg" onclick="document.getElementById('formulario').scrollIntoView({behavior:'smooth'})">Solicitar preventa</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FÓRMULA FINANCIERA -->
+<section id="formula">
+  <div class="formula-inner">
+    <div class="formula-grid">
+      <div class="formula-left">
+        <div class="eyebrow" style="color:var(--gold);">El Cálculo</div>
+        <h2 style="color:#fff;">¿Cuánto necesito recaudar?</h2>
+        <p>Aquí tienes un ejemplo real de cómo funciona la fórmula financiera de una preventa típica de poesía con 50 páginas.</p>
+        <p>Recuerda: si no alcanzas la meta mínima de 30 reservas, el dinero se devuelve íntegramente a tus compradores. Sin riesgos.</p>
+        <div class="formula-tip">
+          <span class="tip-icon">💡</span>
+          <span class="tip-text">La mayoría de autores alcanzan su meta en 2-3 semanas movilizando únicamente su red de WhatsApp y Facebook. ¡Solo necesitas que 30 personas crean en tu libro!</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:Arial,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:14px;">Ejemplo: Poemario 50 páginas · Meta: 50 ejemplares</div>
+        <div class="formula-calc">
+          <div class="calc-row"><span class="calc-label">Meta de ejemplares</span><span class="calc-val">50 libros</span></div>
+          <div class="calc-row"><span class="calc-label">Precio paquete básico</span><span class="calc-val">7€ / libro</span></div>
+          <div class="calc-row"><span class="calc-label">Recaudación total</span><span class="calc-val gold">350€</span></div>
+          <div class="calc-row"><span class="calc-label">Costo de producción (estimado)</span><span class="calc-val">280€</span></div>
+          <div class="calc-row"><span class="calc-label">Regalía del autor (20%)</span><span class="calc-val green">70€</span></div>
+          <div class="calc-row"><span class="calc-label">Comisión ICI (distribución + gestión)</span><span class="calc-val">incluida</span></div>
+          <div class="calc-row" style="background:rgba(184,134,11,.1);border-radius:8px;padding:12px;margin-top:8px;"><span class="calc-label" style="color:rgba(255,255,255,.8);font-weight:700;">Meta mínima para producir</span><span class="calc-val gold" style="font-size:1.4rem;">30 reservas</span></div>
+        </div>
+        <div style="margin-top:14px;font-family:Arial,sans-serif;font-size:.78rem;color:rgba(255,255,255,.35);line-height:1.6;">* Los costos varían según extensión, tipo de libro y plan elegido. El ICI entrega un presupuesto personalizado tras aprobar la solicitud.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULARIO -->
+<section id="formulario">
+  <div class="form-wrap">
+    <div class="form-left">
+      <div class="eyebrow">Solicitud</div>
+      <h2>Empieza tu preventa hoy</h2>
+      <p>Cuéntanos sobre tu libro y tu proyecto. Nuestro equipo editorial evaluará tu solicitud y te responderá en un máximo de 5 días hábiles con un plan personalizado.</p>
+
+      <div class="benefit">
+        <div class="benefit-icon">⚡</div>
+        <div><strong>Respuesta en 5 días</strong><span>Nuestro equipo editorial revisa cada solicitud de forma personal y detallada.</span></div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">📄</div>
+        <div><strong>Contrato transparente</strong><span>Te explicamos cada detalle antes de firmar. Sin letra pequeña ni sorpresas.</span></div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">🔄</div>
+        <div><strong>Devolución garantizada</strong><span>Si no alcanzas la meta, devolvemos el 100% del dinero a tus compradores.</span></div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">🎙️</div>
+        <div><strong>Promoción incluida</strong><span>Tu libro se presenta en Alma América Radio y en nuestras redes a todos los socios del ICI.</span></div>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <h3>📋 Formulario de Solicitud de Preventa</h3>
+      <p class="sub">Todos los campos marcados con * son obligatorios</p>
+
+      <div class="form-row">
+        <div class="fg"><label>Nombre completo *</label><input type="text" placeholder="Tu nombre y apellidos"></div>
+        <div class="fg"><label>País de residencia *</label>
+          <select>
+            <option value="">Selecciona…</option>
+            <option>España</option><option>Argentina</option><option>Colombia</option>
+            <option>México</option><option>Chile</option><option>Perú</option>
+            <option>Venezuela</option><option>Ecuador</option><option>Bolivia</option>
+            <option>Uruguay</option><option>Paraguay</option><option>Panamá</option>
+            <option>Costa Rica</option><option>Guatemala</option><option>Honduras</option>
+            <option>El Salvador</option><option>Nicaragua</option><option>Cuba</option>
+            <option>República Dominicana</option><option>Puerto Rico</option>
+            <option>Portugal</option><option>Brasil</option><option>Otro</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="fg"><label>Correo electrónico *</label><input type="email" placeholder="tu@correo.com"></div>
+        <div class="fg"><label>WhatsApp / Teléfono *</label><input type="tel" placeholder="+34 600 000 000"></div>
+      </div>
+      <div class="fg"><label>Título del libro *</label><input type="text" placeholder="Título de tu obra"></div>
+      <div class="form-row">
+        <div class="fg"><label>Género literario *</label>
+          <select>
+            <option value="">Selecciona…</option>
+            <option>Poesía</option><option>Novela</option><option>Cuento</option>
+            <option>Ensayo</option><option>Autobiografía</option><option>Infantil</option><option>Otro</option>
+          </select>
+        </div>
+        <div class="fg"><label>Páginas aproximadas *</label><input type="number" placeholder="Ej: 80"></div>
+      </div>
+      <div class="fg"><label>¿Cuántos contactos crees que podrían apoyarte? *</label>
+        <select>
+          <option value="">Selecciona un rango…</option>
+          <option>Menos de 20 personas</option>
+          <option>Entre 20 y 50 personas</option>
+          <option>Entre 50 y 100 personas</option>
+          <option>Más de 100 personas</option>
+        </select>
+      </div>
+      <div class="fg"><label>Cuéntanos sobre tu libro y por qué quieres publicarlo *</label>
+        <textarea placeholder="Breve sinopsis y motivación para publicar tu obra…"></textarea>
+      </div>
+      <div class="fg">
+        <label>¿Tienes ya el manuscrito terminado?</label>
+        <select>
+          <option>Sí, está completamente terminado</option>
+          <option>Casi terminado (más del 80%)</option>
+          <option>En proceso (50-80%)</option>
+          <option>Apenas empezando</option>
+        </select>
+      </div>
+      <div class="fg" style="display:flex;align-items:flex-start;gap:10px;">
+        <input type="checkbox" id="terms" style="width:auto;margin-top:3px;flex-shrink:0;">
+        <label for="terms" style="font-family:Arial,sans-serif;font-size:.8rem;color:#6B7280;font-weight:400;letter-spacing:0;">
+          Acepto que el ICI contacte conmigo para evaluar mi solicitud de preventa y que mis datos sean tratados según la <a href="#" style="color:var(--gold);">política de privacidad</a>.
+        </label>
+      </div>
+      <button class="btn-submit" onclick="submitPreventa()">
+        🚀 Enviar solicitud de preventa
+      </button>
+      <p class="form-note">🔒 Tus datos están protegidos · Respuesta garantizada en 5 días hábiles</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="faq-inner">
+    <div class="section-header">
+      <div class="eyebrow">Preguntas Frecuentes</div>
+      <h2>Todo lo que necesitas saber</h2>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">¿Qué pasa si no llego a la meta mínima de reservas?
+        <div class="faq-icon">+</div></button>
+      <div class="faq-a"><div class="faq-a-inner">Si no alcanzas el mínimo de 30 reservas en el plazo acordado, el ICI devuelve el 100% del dinero a cada persona que hizo una reserva. No pierdes nada, y puedes intentar una nueva preventa cuando estés listo.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">¿Cuánto tiempo tengo para alcanzar la meta?
+        <div class="faq-icon">+</div></button>
+      <div class="faq-a"><div class="faq-a-inner">El plazo estándar de preventa es de 60 días. Si en ese tiempo no alcanzas la meta, se activa la devolución automática. En casos especiales, el ICI puede extender el plazo otros 30 días si ves progreso real en las reservas.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">¿Cómo cobran mis compradores? ¿Es seguro?
+        <div class="faq-icon">+</div></button>
+      <div class="faq-a"><div class="faq-a-inner">Todos los pagos se procesan a través de Stripe, la plataforma de pagos más segura del mundo. Tus compradores pueden pagar con tarjeta de crédito o débito. Sus datos financieros están 100% protegidos y cifrados.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">¿Cuánto gana el autor por cada libro vendido en preventa?
+        <div class="faq-icon">+</div></button>
+      <div class="faq-a"><div class="faq-a-inner">El autor recibe entre un 15% y un 20% del precio de preventa por cada ejemplar reservado, más las regalías normales sobre las ventas posteriores al lanzamiento. Los porcentajes exactos se establecen en el contrato de preventa individual.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">¿Puedo hacer preventa si ya tengo el manuscrito listo?
+        <div class="faq-icon">+</div></button>
+      <div class="faq-a"><div class="faq-a-inner">Sí, de hecho es lo ideal. Cuanto más avanzado esté el manuscrito, más rápido podrá actuar el ICI una vez alcanzada la meta. No es obligatorio tenerlo 100% terminado para solicitar la preventa, pero sí es necesario tener al menos el 70% escrito.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">¿Cómo comparto mi preventa con mis contactos?
+        <div class="faq-icon">+</div></button>
+      <div class="faq-a"><div class="faq-a-inner">El ICI te proporciona una página de preventa personalizada con tu nombre y portada del libro, un enlace único para compartir, y una plantilla de mensaje lista para enviar por WhatsApp, Facebook e Instagram. Todo listo para que lo compartas en minutos.</div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="cta-final">
+  <h2>Tu libro merece ser publicado. 📖</h2>
+  <p>No dejes que los costos sean una barrera. Con el Programa de Preventa ICI, tu red de contactos financia tu sueño.</p>
+  <a href="#formulario" class="btn-cta-final">✍️ Solicitar mi preventa ahora →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Instituto Cultural Iberoamericano · Programa de Preventa Editorial</p>
+  <p>
+    <a href="https://www.institutoculturaliberoamericano.es" target="_blank">← Volver a la web principal</a>
+    &nbsp;·&nbsp;
+    <a href="mailto:presidencia@institutoculturaliberoamericano.es">presidencia@institutoculturaliberoamericano.es</a>
+    &nbsp;·&nbsp;
+    <a href="https://wa.me/34633042611" target="_blank">WhatsApp: +34 633 042 611</a>
+  </p>
+</footer>
+
+<script>
+// Animated counter on hero mock
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('heroBar').style.width = '73%';
+    let count = 0;
+    const target = 36;
+    const timer = setInterval(() => {
+      count = Math.min(count + 1, target);
+      document.getElementById('counterNum').textContent = count;
+      if (count >= target) clearInterval(timer);
+    }, 40);
+  }, 600);
+});
+
+// FAQ toggle
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// Form submit
+function submitPreventa() {
+  const terms = document.getElementById('terms');
+  if (!terms.checked) {
+    alert('Por favor acepta los términos para continuar.');
+    return;
+  }
+  document.getElementById('successModal').classList.add('show');
+}
+</script>
+</body>
+</html>
