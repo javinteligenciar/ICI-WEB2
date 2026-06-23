@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isabel — Asesora Editorial ICI · Simulador</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --gold: #C8860A;
+  --gold-light: #F5E6C8;
+  --gold-dark: #8B5E00;
+  --brown: #7B3F00;
+  --ink: #1C1C1E;
+  --ink-soft: #3A3A3C;
+  --muted: #6B6B70;
+  --surface: #FDFAF4;
+  --surface-2: #F5F0E4;
+  --surface-3: #EDE6D4;
+  --border: rgba(139,94,0,0.15);
+  --border-strong: rgba(139,94,0,0.3);
+  --white: #FFFFFF;
+  --green: #1A7F5A;
+  --green-bg: #E6F4EE;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 2px 12px rgba(28,28,30,0.08), 0 1px 3px rgba(28,28,30,0.06);
+  --shadow-lg: 0 8px 32px rgba(28,28,30,0.12), 0 2px 8px rgba(28,28,30,0.08);
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #EDE6D4;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 24px 16px;
+  color: var(--ink);
+}
+
+/* TOP BAR */
+.top-bar {
+  width: 100%;
+  max-width: 1060px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding: 0 4px;
+}
+
+.brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+}
+
+.brand-text .name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+
+.brand-text .sub {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.prototype-badge {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: var(--gold-light);
+  color: var(--gold-dark);
+  border: 1px solid rgba(200,134,10,0.25);
+  letter-spacing: 0.03em;
+}
+
+/* MAIN LAYOUT */
+.shell {
+  width: 100%;
+  max-width: 1060px;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  display: flex;
+  height: 620px;
+  border: 1px solid var(--border);
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 210px;
+  min-width: 210px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  padding: 18px 16px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-header .sh-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.sidebar-header .sh-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.sc-section-label {
+  padding: 12px 16px 5px;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sc-btn {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 9px 16px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  border-left: 2px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.sc-btn:hover { background: var(--surface-2); }
+
+.sc-btn.active {
+  background: var(--gold-light);
+  border-left-color: var(--gold);
+}
+
+.sc-btn i {
+  font-size: 16px;
+  color: var(--gold);
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+
+.sc-btn .sc-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  line-height: 1.2;
+}
+
+.sc-btn .sc-desc {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+  line-height: 1.3;
+}
+
+.sc-btn.active .sc-name { color: var(--gold-dark); }
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 14px 16px;
+  border-top: 1px solid var(--border);
+  background: var(--surface-2);
+}
+
+.sf-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+}
+
+.lead-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--border-strong);
+  color: var(--ink-soft);
+  background: var(--white);
+}
+
+.lead-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--border-strong);
+  transition: background 0.4s;
+}
+
+.ld-l2 { background: var(--gold); }
+.ld-l3 { background: #E67E22; }
+.ld-l4 { background: var(--green); }
+
+/* CHAT AREA */
+.chat-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--white);
+}
+
+.chat-header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--white);
+}
+
+.agent-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(140deg, var(--gold) 0%, var(--brown) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.agent-info .a-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.agent-info .a-sub {
+  font-size: 12px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.online-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.reset-btn {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: 5px 11px;
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.15s;
+}
+
+.reset-btn:hover { background: var(--surface-2); color: var(--ink-soft); }
+.reset-btn i { font-size: 13px; }
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scroll-behavior: smooth;
+}
+
+.msg {
+  display: flex;
+  gap: 8px;
+  max-width: 86%;
+}
+
+.msg.agent { align-self: flex-start; }
+.msg.user { align-self: flex-end; flex-direction: row-reverse; }
+
+.msg-av {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 500;
+  align-self: flex-end;
+}
+
+.msg.agent .msg-av {
+  background: linear-gradient(140deg, var(--gold) 0%, var(--brown) 100%);
+  color: white;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+}
+
+.msg.user .msg-av {
+  background: var(--surface-2);
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+
+.bubble {
+  padding: 9px 14px;
+  border-radius: 16px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  white-space: pre-line;
+}
+
+.msg.agent .bubble {
+  background: var(--surface);
+  color: var(--ink);
+  border-bottom-left-radius: 3px;
+  border: 1px solid var(--border);
+}
+
+.msg.user .bubble {
+  background: var(--gold);
+  color: white;
+  border-bottom-right-radius: 3px;
+}
+
+.typing-bub {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 11px 14px;
+  border-radius: 16px;
+  border-bottom-left-radius: 3px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.t-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--muted);
+  animation: tdot 1.2s infinite;
+}
+.t-dot:nth-child(2) { animation-delay: 0.2s; }
+.t-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes tdot {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
+  30% { transform: translateY(-5px); opacity: 1; }
+}
+
+.quick-replies {
+  padding: 6px 20px 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 10px;
+}
+
+.qr {
+  background: var(--white);
+  border: 1px solid var(--border-strong);
+  border-radius: 20px;
+  padding: 5px 13px;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.qr:hover {
+  background: var(--gold-light);
+  border-color: var(--gold);
+  color: var(--gold-dark);
+}
+
+.input-row {
+  padding: 10px 20px 16px;
+  display: flex;
+  gap: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.chat-input {
+  flex: 1;
+  padding: 9px 15px;
+  border: 1px solid var(--border-strong);
+  border-radius: 24px;
+  font-size: 13.5px;
+  background: var(--surface);
+  color: var(--ink);
+  outline: none;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.chat-input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(200,134,10,0.12);
+}
+
+.send-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+  transition: opacity 0.15s, transform 0.1s;
+}
+
+.send-btn:hover { opacity: 0.88; }
+.send-btn:active { transform: scale(0.94); }
+.send-btn i { font-size: 16px; }
+
+/* LEAD PANEL */
+.lead-panel {
+  width: 200px;
+  min-width: 200px;
+  border-left: 1px solid var(--border);
+  background: var(--surface);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow-y: auto;
+}
+
+.lp-section { margin-bottom: 16px; }
+
+.lp-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.score-block { margin-bottom: 6px; }
+
+.score-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1;
+  display: block;
+}
+
+.score-bar-bg {
+  height: 5px;
+  background: var(--surface-3);
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 6px 0 8px;
+}
+
+.score-bar-fill {
+  height: 100%;
+  background: var(--gold);
+  border-radius: 3px;
+  transition: width 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+
+.level-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 20px;
+  border: 1px solid;
+}
+
+.lt-l1 { background: var(--surface-2); color: var(--muted); border-color: var(--border-strong); }
+.lt-l2 { background: var(--gold-light); color: var(--gold-dark); border-color: rgba(200,134,10,0.35); }
+.lt-l3 { background: #FFF0E0; color: #7B3F00; border-color: rgba(230,126,34,0.4); }
+.lt-l4 { background: var(--green-bg); color: #065F46; border-color: rgba(26,127,90,0.35); }
+
+.lp-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 4px 0 14px;
+}
+
+.field {
+  margin-bottom: 9px;
+}
+
+.field-lbl {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.field-val {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink);
+  padding: 4px 8px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  min-height: 26px;
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+.field-val.empty {
+  color: var(--muted);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 11px;
+}
+
+.action-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--muted);
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--white);
+  margin-bottom: 5px;
+  transition: all 0.4s ease;
+}
+
+.action-row i { font-size: 13px; color: var(--gold); flex-shrink: 0; }
+
+.action-row.fired {
+  border-color: rgba(26,127,90,0.35);
+  background: var(--green-bg);
+  color: #065F46;
+}
+
+.action-row.fired i { color: var(--green); }
+
+/* FOOTER NOTE */
+.footer-note {
+  width: 100%;
+  max-width: 1060px;
+  margin-top: 14px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fn-left {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.fn-right {
+  font-size: 11px;
+  color: var(--muted);
+  text-align: right;
+}
+
+.fn-right a { color: var(--gold); text-decoration: none; }
+.fn-right a:hover { text-decoration: underline; }
+
+@media (max-width: 700px) {
+  .sidebar { display: none; }
+  .lead-panel { display: none; }
+  .shell { height: 85vh; }
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="brand-lockup">
+    <div class="brand-mark">I</div>
+    <div class="brand-text">
+      <div class="name">Instituto Cultural Iberoamericano</div>
+      <div class="sub">institutoculturaliberoamericano.es</div>
+    </div>
+  </div>
+  <div class="prototype-badge">Prototipo · Simulador Agente IA</div>
+</div>
+
+<div class="shell">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="sh-label">Agente editorial</div>
+      <div class="sh-title">Isabel</div>
+    </div>
+
+    <div class="sc-section-label">Escenario de prueba</div>
+
+    <button class="sc-btn active" onclick="loadScenario('manuscript')" id="sc-manuscript">
+      <i class="ti ti-book" aria-hidden="true"></i>
+      <div>
+        <div class="sc-name">Manuscrito listo</div>
+        <div class="sc-desc">Autor con libro terminado</div>
+      </div>
+    </button>
+
+    <button class="sc-btn" onclick="loadScenario('inprogress')" id="sc-inprogress">
+      <i class="ti ti-pencil" aria-hidden="true"></i>
+      <div>
+        <div class="sc-name">En proceso</div>
+        <div class="sc-desc">Escribiendo su libro</div>
+      </div>
+    </button>
+
+    <button class="sc-btn" onclick="loadScenario('pricing')" id="sc-pricing">
+      <i class="ti ti-currency-euro" aria-hidden="true"></i>
+      <div>
+        <div class="sc-name">Consulta de precio</div>
+        <div class="sc-desc">Pregunta por presupuesto</div>
+      </div>
+    </button>
+
+    <button class="sc-btn" onclick="loadScenario('distribution')" id="sc-distribution">
+      <i class="ti ti-world" aria-hidden="true"></i>
+      <div>
+        <div class="sc-name">Distribución</div>
+        <div class="sc-desc">Dónde vender el libro</div>
+      </div>
+    </button>
+
+    <div class="sidebar-footer">
+      <div class="sf-label">Lead actual</div>
+      <div class="lead-pill">
+        <div class="lead-dot" id="sidebar-dot"></div>
+        <span id="sidebar-level">Sin datos</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAT -->
+  <div class="chat-area">
+    <div class="chat-header">
+      <div class="agent-avatar">Is</div>
+      <div class="agent-info">
+        <div class="a-name">Isabel</div>
+        <div class="a-sub">
+          <span class="online-dot"></span>
+          Asesora editorial · ICI
+        </div>
+      </div>
+      <button class="reset-btn" onclick="resetChat()">
+        <i class="ti ti-refresh" aria-hidden="true"></i> Reiniciar
+      </button>
+    </div>
+
+    <div class="messages" id="messages"></div>
+
+    <div class="quick-replies" id="quick-replies"></div>
+
+    <div class="input-row">
+      <input class="chat-input" id="user-input" type="text" placeholder="Escribe tu mensaje..." autocomplete="off" />
+      <button class="send-btn" onclick="sendMessage()" aria-label="Enviar">
+        <i class="ti ti-send" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- LEAD PANEL -->
+  <div class="lead-panel">
+    <div class="lp-section">
+      <div class="lp-label">Puntuación lead</div>
+      <div class="score-block">
+        <span class="score-number" id="score-num">0</span>
+        <span style="font-size:12px;color:var(--muted);margin-left:2px;">/ 100</span>
+      </div>
+      <div class="score-bar-bg">
+        <div class="score-bar-fill" id="score-bar" style="width:0%"></div>
+      </div>
+      <div class="level-tag lt-l1" id="level-tag">Nivel 1 — Curioso</div>
+    </div>
+
+    <hr class="lp-divider">
+
+    <div class="lp-section">
+      <div class="lp-label">Datos capturados</div>
+      <div class="field">
+        <div class="field-lbl">Nombre</div>
+        <div class="field-val empty" id="f-nombre">—</div>
+      </div>
+      <div class="field">
+        <div class="field-lbl">Email</div>
+        <div class="field-val empty" id="f-email">—</div>
+      </div>
+      <div class="field">
+        <div class="field-lbl">País</div>
+        <div class="field-val empty" id="f-pais">—</div>
+      </div>
+      <div class="field">
+        <div class="field-lbl">Género</div>
+        <div class="field-val empty" id="f-genero">—</div>
+      </div>
+      <div class="field">
+        <div class="field-lbl">Manuscrito</div>
+        <div class="field-val empty" id="f-estado">—</div>
+      </div>
+    </div>
+
+    <hr class="lp-divider">
+
+    <div class="lp-section">
+      <div class="lp-label">Automatizaciones</div>
+      <div class="action-row" id="a-email">
+        <i class="ti ti-mail" aria-hidden="true"></i>
+        <span>Email al autor</span>
+      </div>
+      <div class="action-row" id="a-admin">
+        <i class="ti ti-bell" aria-hidden="true"></i>
+        <span>Alerta equipo ICI</span>
+      </div>
+      <div class="action-row" id="a-crm">
+        <i class="ti ti-database" aria-hidden="true"></i>
+        <span>Alta en CRM / BBDD</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer-note">
+  <div class="fn-left">Simulador educativo · No conectado a producción · Datos ficticios</div>
+  <div class="fn-right">
+    Propuesta técnica elaborada por Frank &amp; Alexander ·
+    <a href="https://www.institutoculturaliberoamericano.es" target="_blank">institutoculturaliberoamericano.es</a>
+  </div>
+</div>
+
+<script>
+const SCENARIOS = {
+  manuscript: {
+    flow: [
+      {
+        from: 'agent',
+        text: '¡Hola! Soy Isabel, asesora editorial del Instituto Cultural Iberoamericano. 📚\n\nEs un placer acompañarte en el camino hacia publicar tu obra. ¿Tienes ya tu manuscrito listo?',
+        qr: ['Sí, está terminado', 'Aún lo estoy escribiendo', 'Quiero información general']
+      },
+      {
+        trigger: 'Sí, está terminado',
+        from: 'agent',
+        text: '¡Felicidades! Llegar a ese punto ya es un logro enorme.\n\nPara orientarte mejor, ¿en qué género literario se enmarca tu obra?',
+        qr: ['Novela', 'Poesía', 'Ensayo', 'Libro infantil', 'Autobiografía'],
+        captureEstado: 'Terminado',
+        addScore: 20
+      },
+      {
+        trigger: 'Novela',
+        from: 'agent',
+        text: 'Excelente. La narrativa es uno de nuestros fuertes en ICI.\n\nNuestro proceso incluye corrección de estilo, maquetación profesional, ISBN y distribución en España, Latinoamérica y plataformas digitales como Amazon y Casa del Libro.\n\n¿Cuántas páginas tiene aproximadamente tu manuscrito?',
+        qr: ['Menos de 150 páginas', '150 – 300 páginas', 'Más de 300 páginas'],
+        captureGenero: 'Novela',
+        addScore: 20
+      },
+      {
+        trigger: 'Poesía',
+        from: 'agent',
+        text: 'La poesía tiene un lugar muy especial en el catálogo del ICI. Cuidamos especialmente el diseño interior y la maquetación para libros de poesía.\n\n¿Cuántos poemas o páginas tiene aproximadamente la obra?',
+        qr: ['Menos de 80 páginas', '80 – 150 páginas', 'Más de 150 páginas'],
+        captureGenero: 'Poesía',
+        addScore: 20
+      },
+      {
+        trigger: 'Menos de 150 páginas',
+        from: 'agent',
+        text: 'Perfecto. Una obra de esa extensión encaja muy bien con nuestro paquete estándar de publicación. Podemos darte un presupuesto personalizado sin compromiso.\n\n¿Me facilitas tu nombre y correo electrónico para que mi equipo te contacte con la propuesta?',
+        qr: [],
+        captureEstado: 'Terminado · <150 págs',
+        addScore: 15
+      },
+      {
+        trigger: '150 – 300 páginas',
+        from: 'agent',
+        text: 'Una extensión muy habitual en narrativa de calidad. Te preparamos una propuesta editorial completa.\n\n¿Me dices tu nombre y email para enviártela?',
+        qr: [],
+        captureEstado: 'Terminado · 150–300 págs',
+        addScore: 15
+      },
+      {
+        trigger: 'Más de 300 páginas',
+        from: 'agent',
+        text: 'Una obra de gran extensión merece un tratamiento editorial especial. En ICI tenemos experiencia con obras largas y te prepararemos una propuesta a medida.\n\n¿Me facilitas tu nombre y correo electrónico?',
+        qr: [],
+        captureEstado: 'Terminado · +300 págs',
+        addScore: 15
+      },
+      {
+        trigger: 'Menos de 80 páginas',
+        from: 'agent',
+        text: 'Un poemario de esa extensión es perfecto para nuestra edición artesanal. Cuidamos cada detalle tipográfico.\n\n¿Me das tu nombre y email para enviarte la propuesta?',
+        qr: [],
+        captureEstado: 'Terminado · <80 págs',
+        addScore: 15
+      }
+    ],
+    dataCapture: true
+  },
+
+  inprogress: {
+    flow: [
+      {
+        from: 'agent',
+        text: '¡Hola! Soy Isabel, asesora editorial del ICI.\n\nAcompañamos a autores en cada etapa, desde la idea hasta las librerías. ¿En qué punto te encuentras con tu proyecto?',
+        qr: ['Tengo la idea, aún no empiezo', 'Llevo la mitad escrita', 'Casi lo termino']
+      },
+      {
+        trigger: 'Llevo la mitad escrita',
+        from: 'agent',
+        text: '¡Fantástico! Estás en un punto clave. Muchos autores nos consultan en esta etapa para planificar el proceso editorial con tiempo.\n\n¿De qué género es tu libro?',
+        qr: ['Ficción / Novela', 'No ficción / Ensayo', 'Poesía', 'Infantil / Juvenil'],
+        addScore: 20
+      },
+      {
+        trigger: 'Casi lo termino',
+        from: 'agent',
+        text: '¡Ya casi! Estás muy cerca de una meta importante. Es el momento ideal para empezar a pensar en el proceso editorial.\n\n¿Qué género estás escribiendo?',
+        qr: ['Ficción / Novela', 'No ficción / Ensayo', 'Poesía', 'Infantil / Juvenil'],
+        addScore: 25
+      },
+      {
+        trigger: 'Tengo la idea, aún no empiezo',
+        from: 'agent',
+        text: 'Toda gran obra empieza con una idea. En ICI podemos orientarte desde el inicio sobre cómo estructurar tu proyecto.\n\n¿De qué trataría tu libro?',
+        qr: ['Ficción / Novela', 'No ficción / Ensayo', 'Poesía', 'Infantil / Juvenil'],
+        addScore: 10
+      },
+      {
+        trigger: 'Ficción / Novela',
+        from: 'agent',
+        text: 'La ficción tiene una demanda editorial muy sólida. Mientras terminas de escribir, puedes ir pensando en la sinopsis, el público objetivo y la estrategia de marketing.\n\n¿Te interesaría recibir nuestra guía gratuita "10 pasos para publicar tu primera novela"?',
+        qr: ['Sí, me interesa', 'Prefiero hablar con alguien'],
+        captureGenero: 'Ficción / Novela',
+        captureEstado: 'En proceso',
+        addScore: 15
+      },
+      {
+        trigger: 'No ficción / Ensayo',
+        from: 'agent',
+        text: 'El ensayo y la no ficción tienen una presencia creciente en el mercado editorial. ICI tiene experiencia en posicionar este tipo de obras.\n\n¿Te enviamos información sobre nuestros procesos editoriales para no ficción?',
+        qr: ['Sí, envíame información', 'Prefiero hablar con alguien'],
+        captureGenero: 'No ficción / Ensayo',
+        captureEstado: 'En proceso',
+        addScore: 15
+      },
+      {
+        trigger: 'Sí, me interesa',
+        from: 'agent',
+        text: '¡Genial! Te la enviamos directamente a tu correo. Incluye también información sobre plazos, costes orientativos y un caso de éxito de autor que publicó con nosotros este año.\n\n¿Me dices tu nombre y email?',
+        qr: [],
+        addScore: 10
+      },
+      {
+        trigger: 'Sí, envíame información',
+        from: 'agent',
+        text: 'Perfecto. Te enviaremos un dossier completo sobre el proceso editorial para obras de no ficción.\n\n¿Me facilitas tu nombre y correo?',
+        qr: [],
+        addScore: 10
+      }
+    ],
+    dataCapture: true
+  },
+
+  pricing: {
+    flow: [
+      {
+        from: 'agent',
+        text: '¡Hola! Soy Isabel del ICI. Entiendo que quieres conocer el coste de publicar tu libro.\n\nLos precios varían según el tipo de servicio. ¿Qué es lo que necesitas principalmente?',
+        qr: ['Publicación completa', 'Solo corrección y maquetación', 'ISBN y distribución', 'Quiero verlo todo']
+      },
+      {
+        trigger: 'Publicación completa',
+        from: 'agent',
+        text: 'Una publicación completa en ICI incluye:\n\n• Corrección de estilo\n• Maquetación profesional\n• Diseño de portada\n• ISBN y depósito legal\n• Distribución física y digital\n\nLos rangos orientativos van desde 800€ para obras cortas hasta 2.500€ para proyectos premium.\n\n¿Cuántas páginas tiene tu obra aproximadamente?',
+        qr: ['Menos de 150', '150 a 300', 'Más de 300'],
+        captureEstado: 'Interesado en publicación completa',
+        addScore: 25
+      },
+      {
+        trigger: 'Solo corrección y maquetación',
+        from: 'agent',
+        text: 'Entendido. Para corrección de estilo + maquetación sin distribución, los precios orientativos son:\n\n• Hasta 150 páginas: desde 400€\n• 150–300 páginas: desde 650€\n• +300 páginas: desde 950€\n\n¿Te interesa que te hagamos un presupuesto exacto?',
+        qr: ['Sí, quiero presupuesto', 'Tengo más preguntas'],
+        captureEstado: 'Interesado en corrección/maquetación',
+        addScore: 20
+      },
+      {
+        trigger: '150 a 300',
+        from: 'agent',
+        text: 'Para una obra de 150–300 páginas con publicación completa, el coste estimado está entre 1.200€ y 1.800€, incluyendo todos los servicios.\n\nPodemos hacer una propuesta exacta sin ningún compromiso. ¿Te la enviamos?',
+        qr: ['Sí, quiero presupuesto', 'Tengo más preguntas'],
+        captureEstado: 'Consulta precio · 150–300 págs',
+        addScore: 20
+      },
+      {
+        trigger: 'Menos de 150',
+        from: 'agent',
+        text: 'Para una obra de menos de 150 páginas con publicación completa, el coste estimado está entre 800€ y 1.200€.\n\n¿Quieres que te preparemos una propuesta personalizada?',
+        qr: ['Sí, quiero presupuesto', 'Tengo más preguntas'],
+        captureEstado: 'Consulta precio · <150 págs',
+        addScore: 20
+      },
+      {
+        trigger: 'Más de 300',
+        from: 'agent',
+        text: 'Para obras de más de 300 páginas, preparamos propuestas a medida. El rango habitual es entre 1.800€ y 2.800€ según los servicios incluidos.\n\n¿Te hacemos una propuesta personalizada?',
+        qr: ['Sí, quiero presupuesto', 'Tengo más preguntas'],
+        captureEstado: 'Consulta precio · +300 págs',
+        addScore: 20
+      },
+      {
+        trigger: 'Sí, quiero presupuesto',
+        from: 'agent',
+        text: 'Nuestro equipo te enviará la propuesta detallada en menos de 24 horas laborables.\n\n¿Me facilitas tu nombre y correo electrónico?',
+        qr: [],
+        addScore: 30
+      }
+    ],
+    dataCapture: true
+  },
+
+  distribution: {
+    flow: [
+      {
+        from: 'agent',
+        text: '¡Hola! Soy Isabel del ICI. ¿Te preguntas dónde se venderá tu libro si publicas con nosotros?\n\n¿Tienes ya un manuscrito o estás en fase de planificación?',
+        qr: ['Tengo el manuscrito listo', 'Aún estoy escribiendo', 'Solo quiero información']
+      },
+      {
+        trigger: 'Solo quiero información',
+        from: 'agent',
+        text: 'Claro, con mucho gusto. Los libros publicados con ICI se distribuyen en:\n\n📦 España: El Corte Inglés, FNAC, Casa del Libro, librerías independientes\n🌎 Latinoamérica: principales cadenas y distribuidores\n💻 Digital: Amazon Kindle, Google Play Books, Kobo, iBooks\n\nTambién gestionamos la presencia en Dilve y D-books.\n\n¿Tienes ya un proyecto editorial en mente?',
+        qr: ['Sí, tengo manuscrito', 'Todavía no', '¿Cuánto cuesta la distribución?'],
+        addScore: 10
+      },
+      {
+        trigger: 'Tengo el manuscrito listo',
+        from: 'agent',
+        text: '¡Perfecto! Eso hace el proceso mucho más ágil. ¿De qué género es tu obra?',
+        qr: ['Narrativa / Novela', 'Poesía', 'Ensayo / No ficción', 'Infantil / Juvenil'],
+        captureEstado: 'Terminado',
+        addScore: 30
+      },
+      {
+        trigger: 'Sí, tengo manuscrito',
+        from: 'agent',
+        text: '¡Fantástico! ¿De qué género es tu obra?',
+        qr: ['Narrativa / Novela', 'Poesía', 'Ensayo / No ficción', 'Infantil / Juvenil'],
+        captureEstado: 'Terminado',
+        addScore: 30
+      },
+      {
+        trigger: 'Narrativa / Novela',
+        from: 'agent',
+        text: 'La narrativa tiene muy buena presencia en todos los canales que trabajamos. Podemos posicionar tu obra tanto en el canal físico como digital desde el primer mes de publicación.\n\n¿Te gustaría que te preparáramos una propuesta personalizada?',
+        qr: ['Sí, me interesa', 'Primero quiero ver precios'],
+        captureGenero: 'Narrativa / Novela',
+        addScore: 20
+      },
+      {
+        trigger: 'Ensayo / No ficción',
+        from: 'agent',
+        text: 'La no ficción tiene cada vez más presencia en los canales de distribución que trabajamos, especialmente en plataformas digitales y librerías especializadas.\n\n¿Quieres que te preparemos una propuesta?',
+        qr: ['Sí, me interesa', 'Primero quiero ver precios'],
+        captureGenero: 'Ensayo / No ficción',
+        addScore: 20
+      },
+      {
+        trigger: 'Sí, me interesa',
+        from: 'agent',
+        text: 'Genial. Para darte información concreta y útil sobre tu proyecto, necesito tus datos.\n\n¿Me dices tu nombre y correo electrónico?',
+        qr: [],
+        addScore: 15
+      }
+    ],
+    dataCapture: true
+  }
+};
+
+let currentScenario = 'manuscript';
+let flowIndex = 0;
+let leadData = { nombre: '', email: '', pais: '', genero: '', estado: '' };
+let score = 0;
+let awaitingData = false;
+let dataStep = 0;
+let isTyping = false;
+
+function g(id) { return document.getElementById(id); }
+
+function resetChat() {
+  flowIndex = 0;
+  leadData = { nombre: '', email: '', pais: '', genero: '', estado: '' };
+  score = 0;
+  awaitingData = false;
+  dataStep = 0;
+  isTyping = false;
+  g('messages').innerHTML = '';
+  g('quick-replies').innerHTML = '';
+  g('user-input').value = '';
+  g('user-input').placeholder = 'Escribe tu mensaje...';
+  updatePanel();
+  ['a-email','a-admin','a-crm'].forEach(id => {
+    const el = g(id);
+    el.classList.remove('fired');
+    el.querySelector('span').textContent = id === 'a-email' ? 'Email al autor' : id === 'a-admin' ? 'Alerta equipo ICI' : 'Alta en CRM / BBDD';
+  });
+  setTimeout(() => startScenario(currentScenario), 200);
+}
+
+function loadScenario(name) {
+  currentScenario = name;
+  document.querySelectorAll('.sc-btn').forEach(b => b.classList.remove('active'));
+  g('sc-' + name).classList.add('active');
+  resetChat();
+}
+
+function addMsg(from, text) {
+  const msgs = g('messages');
+  const wrap = document.createElement('div');
+  wrap.className = 'msg ' + from;
+
+  const av = document.createElement('div');
+  av.className = 'msg-av';
+  if (from === 'agent') {
+    av.textContent = 'Is';
+  } else {
+    av.innerHTML = '<i class="ti ti-user" style="font-size:14px" aria-hidden="true"></i>';
+  }
+
+  const bub = document.createElement('div');
+  bub.className = 'bubble';
+  bub.textContent = text;
+
+  if (from === 'agent') {
+    wrap.appendChild(av);
+    wrap.appendChild(bub);
+  } else {
+    wrap.appendChild(bub);
+    wrap.appendChild(av);
+  }
+
+  msgs.appendChild(wrap);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showTyping() {
+  const msgs = g('messages');
+  const wrap = document.createElement('div');
+  wrap.className = 'msg agent';
+  wrap.id = 'typing-ind';
+  const av = document.createElement('div');
+  av.className = 'msg-av';
+  av.textContent = 'Is';
+  const tb = document.createElement('div');
+  tb.className = 'typing-bub';
+  tb.innerHTML = '<div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div>';
+  wrap.appendChild(av);
+  wrap.appendChild(tb);
+  msgs.appendChild(wrap);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function removeTyping() {
+  const t = g('typing-ind');
+  if (t) t.remove();
+}
+
+function setQR(replies) {
+  const qr = g('quick-replies');
+  qr.innerHTML = '';
+  replies.forEach(r => {
+    const btn = document.createElement('button');
+    btn.className = 'qr';
+    btn.textContent = r;
+    btn.onclick = () => handleChoice(r);
+    qr.appendChild(btn);
+  });
+}
+
+function agentSay(text, qr, delay) {
+  isTyping = true;
+  g('quick-replies').innerHTML = '';
+  delay = delay || 950;
+  setTimeout(() => {
+    showTyping();
+    setTimeout(() => {
+      removeTyping();
+      addMsg('agent', text);
+      if (qr && qr.length > 0) setQR(qr);
+      isTyping = false;
+      if (qr && qr.length === 0 && SCENARIOS[currentScenario].dataCapture) {
+        setTimeout(() => {
+          awaitingData = true;
+          dataStep = 0;
+          g('user-input').placeholder = 'Escribe tu nombre completo...';
+        }, 400);
+      }
+    }, delay);
+  }, 180);
+}
+
+function updatePanel() {
+  const fields = [
+    ['f-nombre', leadData.nombre],
+    ['f-email', leadData.email],
+    ['f-pais', leadData.pais],
+    ['f-genero', leadData.genero],
+    ['f-estado', leadData.estado]
+  ];
+  fields.forEach(([id, val]) => {
+    const el = g(id);
+    if (val) { el.textContent = val; el.classList.remove('empty'); }
+    else { el.textContent = '—'; el.classList.add('empty'); }
+  });
+
+  const s = Math.min(score, 100);
+  g('score-num').textContent = s;
+  g('score-bar').style.width = s + '%';
+
+  const tag = g('level-tag');
+  const dot = g('sidebar-dot');
+  const lvl = g('sidebar-level');
+
+  if (s >= 76) {
+    tag.className = 'level-tag lt-l4'; tag.textContent = 'Nivel 4 — Listo para contratar';
+    dot.className = 'lead-dot ld-l4'; lvl.textContent = 'Nivel 4';
+  } else if (s >= 51) {
+    tag.className = 'level-tag lt-l3'; tag.textContent = 'Nivel 3 — Autor cualificado';
+    dot.className = 'lead-dot ld-l3'; lvl.textContent = 'Nivel 3';
+  } else if (s >= 26) {
+    tag.className = 'level-tag lt-l2'; tag.textContent = 'Nivel 2 — Interesado';
+    dot.className = 'lead-dot ld-l2'; lvl.textContent = 'Nivel 2';
+  } else {
+    tag.className = 'level-tag lt-l1'; tag.textContent = 'Nivel 1 — Curioso';
+    dot.className = 'lead-dot'; lvl.textContent = 'Sin datos';
+  }
+}
+
+function fireAutomations() {
+  const s = Math.min(score, 100);
+  const level = s >= 76 ? 4 : s >= 51 ? 3 : s >= 26 ? 2 : 1;
+
+  setTimeout(() => {
+    const el = g('a-email');
+    el.classList.add('fired');
+    el.querySelector('span').textContent = 'Email enviado ✓';
+  }, 700);
+
+  if (level >= 2) {
+    setTimeout(() => {
+      const el = g('a-crm');
+      el.classList.add('fired');
+      el.querySelector('span').textContent = 'Lead guardado en BBDD ✓';
+    }, 1400);
+  }
+
+  if (level >= 3) {
+    setTimeout(() => {
+      const el = g('a-admin');
+      el.classList.add('fired');
+      el.querySelector('span').textContent = 'Equipo ICI alertado ✓';
+    }, 2100);
+  }
+}
+
+function completeCapture() {
+  awaitingData = false;
+  g('user-input').placeholder = 'Escribe tu mensaje...';
+  updatePanel();
+
+  const nombre = leadData.nombre ? leadData.nombre.split(' ')[0] : 'autor/a';
+  const msg = '¡Muchas gracias, ' + nombre + '! 🎉\n\nHemos registrado tu consulta. Un asesor editorial del ICI se pondrá en contacto contigo en menos de 24 horas laborables con una propuesta personalizada.\n\nMientras tanto, puedes visitar nuestra web para conocer más casos de éxito de autores que ya han publicado con nosotros.\n\n¡Que tengas un gran día!';
+
+  agentSay(msg, ['Probar otro escenario', 'Reiniciar esta conversación'], 1100);
+  setTimeout(fireAutomations, 1600);
+}
+
+function handleDataCapture(text) {
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (dataStep === 0) {
+    if (!emailRe.test(text) && text.trim().length >= 2) {
+      leadData.nombre = text.trim();
+      score += 15;
+      updatePanel();
+      dataStep = 1;
+      g('user-input').placeholder = 'Escribe tu correo electrónico...';
+      const first = text.trim().split(' ')[0];
+      agentSay('Encantada, ' + first + '. ¿Y tu correo electrónico?', [], 700);
+    } else if (emailRe.test(text)) {
+      if (!leadData.nombre) { leadData.nombre = 'Autor ICI'; score += 8; }
+      leadData.email = text.trim();
+      score += 20;
+      updatePanel();
+      dataStep = 2;
+      g('user-input').placeholder = 'Escribe tu país de residencia...';
+      agentSay('Perfecto. Por último, ¿en qué país resides actualmente?', [], 700);
+    } else {
+      agentSay('¿Podrías indicarme tu nombre completo?', [], 600);
+    }
+  } else if (dataStep === 1) {
+    if (emailRe.test(text)) {
+      leadData.email = text.trim();
+      score += 20;
+      updatePanel();
+      dataStep = 2;
+      g('user-input').placeholder = 'Escribe tu país de residencia...';
+      agentSay('Perfecto. Por último, ¿en qué país resides actualmente?', [], 700);
+    } else {
+      agentSay('Ese correo no parece válido. ¿Puedes revisarlo?', [], 600);
+    }
+  } else if (dataStep === 2) {
+    leadData.pais = text.trim();
+    score += 5;
+    updatePanel();
+    completeCapture();
+  }
+}
+
+function handleChoice(choice) {
+  if (isTyping) return;
+  g('quick-replies').innerHTML = '';
+  addMsg('user', choice);
+
+  if (choice === 'Probar otro escenario') {
+    agentSay('Claro. Puedes seleccionar otro escenario en el panel de la izquierda o reiniciar esta conversación con el botón de arriba.', ['Manuscrito listo', 'Consulta de precio', 'Distribución'], 700);
+    return;
+  }
+  if (choice === 'Reiniciar esta conversación' || choice === 'Nueva consulta') {
+    resetChat(); return;
+  }
+  if (choice === 'Manuscrito listo') { loadScenario('manuscript'); return; }
+  if (choice === 'Consulta de precio') { loadScenario('pricing'); return; }
+  if (choice === 'Distribución') { loadScenario('distribution'); return; }
+
+  const sc = SCENARIOS[currentScenario];
+  for (let i = flowIndex + 1; i < sc.flow.length; i++) {
+    const step = sc.flow[i];
+    if (step.trigger === choice) {
+      flowIndex = i;
+      if (step.captureGenero) { leadData.genero = step.captureGenero; }
+      if (step.captureEstado) { leadData.estado = step.captureEstado; }
+      if (step.addScore) { score += step.addScore; updatePanel(); }
+      agentSay(step.text, step.qr, 1000);
+      return;
+    }
+  }
+
+  agentSay('Entiendo. ¿Hay algo específico sobre nuestros servicios editoriales que quieras conocer?', ['Publicación de libros', 'Precios', 'Distribución y venta', 'Hablar con un asesor'], 900);
+}
+
+function sendMessage() {
+  if (isTyping) return;
+  const input = g('user-input');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  addMsg('user', text);
+  g('quick-replies').innerHTML = '';
+
+  if (awaitingData) { handleDataCapture(text); return; }
+  handleChoice(text);
+}
+
+function startScenario(name) {
+  const first = SCENARIOS[name].flow[0];
+  flowIndex = 0;
+  setTimeout(() => agentSay(first.text, first.qr, 750), 150);
+}
+
+g('user-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') sendMessage();
+});
+
+loadScenario('manuscript');
+</script>
+</body>
+</html>
